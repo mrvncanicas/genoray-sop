@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Genoray Win11 Install SOP</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: #0f1117;
+    color: #e2e8f0;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .logo {
+    display: inline-block;
+    background: #1e40af;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #f8fafc;
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    color: #64748b;
+    font-size: 14px;
+  }
+
+  .problem-box {
+    background: #1e1b2e;
+    border: 1px solid #7c3aed;
+    border-left: 4px solid #7c3aed;
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin-bottom: 40px;
+  }
+
+  .problem-box h2 {
+    color: #a78bfa;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .problem-box ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .problem-box ul li {
+    padding: 4px 0;
+    color: #c4b5fd;
+    font-size: 14px;
+  }
+
+  .problem-box ul li::before {
+    content: "→ ";
+    color: #7c3aed;
+  }
+
+  .fix-note {
+    margin-top: 12px;
+    color: #86efac;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .step {
+    background: #1a1f2e;
+    border: 1px solid #2d3748;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .step:hover {
+    border-color: #3b82f6;
+  }
+
+  .step-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .step-number {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #1e40af;
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .step.critical .step-number {
+    background: #dc2626;
+  }
+
+  .step.optional .step-number {
+    background: #047857;
+  }
+
+  .step-title {
+    flex: 1;
+  }
+
+  .step-title h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #f1f5f9;
+  }
+
+  .step-title p {
+    font-size: 13px;
+    color: #64748b;
+    margin-top: 2px;
+  }
+
+  .step-badge {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 4px;
+  }
+
+  .badge-critical {
+    background: #450a0a;
+    color: #fca5a5;
+    border: 1px solid #dc2626;
+  }
+
+  .badge-optional {
+    background: #022c22;
+    color: #86efac;
+    border: 1px solid #047857;
+  }
+
+  .chevron {
+    color: #475569;
+    font-size: 18px;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+
+  .step.open .chevron {
+    transform: rotate(180deg);
+  }
+
+  .step-body {
+    display: none;
+    padding: 0 24px 24px;
+    border-top: 1px solid #2d3748;
+  }
+
+  .step.open .step-body {
+    display: block;
+  }
+
+  .step-body p, .step-body li {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #94a3b8;
+  }
+
+  .step-body ul, .step-body ol {
+    padding-left: 20px;
+    margin: 12px 0;
+  }
+
+  .step-body li {
+    margin-bottom: 6px;
+  }
+
+  .step-body strong {
+    color: #e2e8f0;
+  }
+
+  .warning {
+    background: #1c1209;
+    border: 1px solid #d97706;
+    border-left: 4px solid #d97706;
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin: 16px 0;
+    font-size: 13px;
+    color: #fcd34d;
+  }
+
+  .warning::before {
+    content: "⚠️  ";
+  }
+
+  .info {
+    background: #0c1a2e;
+    border: 1px solid #1e40af;
+    border-left: 4px solid #3b82f6;
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin: 16px 0;
+    font-size: 13px;
+    color: #93c5fd;
+  }
+
+  .info::before {
+    content: "ℹ️  ";
+  }
+
+  .code-block {
+    position: relative;
+    margin: 16px 0;
+  }
+
+  .code-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #1e3a5f;
+    color: #60a5fa;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 6px 6px 0 0;
+    border: 1px solid #2563eb;
+    border-bottom: none;
+  }
+
+  .code-label.plain {
+    background: #1a2a1a;
+    color: #86efac;
+    border-color: #166534;
+  }
+
+  pre {
+    background: #0d1117;
+    border: 1px solid #2563eb;
+    border-radius: 0 6px 6px 6px;
+    padding: 16px;
+    overflow-x: auto;
+    font-family: 'Cascadia Code', 'Consolas', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #e2e8f0;
+  }
+
+  pre.plain {
+    border-color: #166534;
+    border-radius: 0 6px 6px 6px;
+  }
+
+  .copy-btn {
+    position: absolute;
+    top: 30px;
+    right: 10px;
+    background: #1e40af;
+    color: #93c5fd;
+    border: 1px solid #2563eb;
+    border-radius: 6px;
+    padding: 5px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .copy-btn:hover {
+    background: #2563eb;
+    color: white;
+  }
+
+  .copy-btn.copied {
+    background: #064e3b;
+    color: #86efac;
+    border-color: #047857;
+  }
+
+  .sub-steps {
+    counter-reset: substep;
+    list-style: none;
+    padding: 0;
+    margin: 16px 0;
+  }
+
+  .sub-steps li {
+    counter-increment: substep;
+    display: flex;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid #1e293b;
+    font-size: 14px;
+    color: #94a3b8;
+  }
+
+  .sub-steps li:last-child {
+    border-bottom: none;
+  }
+
+  .sub-steps li::before {
+    content: counter(substep);
+    background: #1e293b;
+    color: #60a5fa;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  code {
+    background: #1e293b;
+    color: #7dd3fc;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Cascadia Code', 'Consolas', monospace;
+    font-size: 12px;
+  }
+
+  .ref-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+    font-size: 13px;
+  }
+
+  .ref-table th {
+    background: #1e293b;
+    color: #60a5fa;
+    text-align: left;
+    padding: 10px 14px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .ref-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #1e293b;
+    color: #94a3b8;
+  }
+
+  .ref-table td:first-child {
+    color: #e2e8f0;
+    font-weight: 500;
+  }
+
+  .ref-table td code {
+    font-size: 13px;
+  }
+
+  .ref-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 48px;
+    color: #334155;
+    font-size: 12px;
+  }
+
+  .progress-bar {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 40px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .progress-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #1e293b;
+    border: 1px solid #2d3748;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .progress-dot.done {
+    background: #3b82f6;
+    border-color: #3b82f6;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="logo">Genoray America — Field SOP</div>
+    <h1>PapayaOP + Triana on Windows 11</h1>
+    <p class="subtitle">Installation guide for Windows 11 24H2 — SQL Server compatibility fix</p>
+  </header>
+
+  <div class="problem-box">
+    <h2>Root Cause</h2>
+    <ul>
+      <li>PowerShell 2 is fully removed in Windows 11 24H2</li>
+      <li>Bundled SQL Server 2012 (inside the Genoray installer) requires PS2</li>
+      <li>Installer fails silently at the SQL install step</li>
+    </ul>
+    <p class="fix-note">✓ Fix: Install SQL Server 2019 Express manually before running the Genoray installer</p>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="step open" id="step1">
+    <div class="step-header" onclick="toggle('step1')">
+      <div class="step-number">1</div>
+      <div class="step-title">
+        <h3>Install .NET Framework 3.5</h3>
+        <p>Required prerequisite for SQL Server 2019</p>
+      </div>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="step-body">
+      <p>Open PowerShell as Administrator (<strong>Win + X → A</strong>) and run:</p>
+      <div class="code-block">
+        <div class="code-label">⚡ PowerShell (Admin)</div>
+        <pre id="code1">Enable-WindowsOptionalFeature -Online -FeatureName "NetFx3" -All</pre>
+        <button class="copy-btn" onclick="copyCode('code1', this)">Copy</button>
+      </div>
+      <p>Allow it to download and install. Restart if prompted before continuing.</p>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step" id="step2">
+    <div class="step-header" onclick="toggle('step2')">
+      <div class="step-number">2</div>
+      <div class="step-title">
+        <h3>Install SQL Server 2019 Express</h3>
+        <p>Manual install with correct instance name and auth settings</p>
+      </div>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="step-body">
+      <p>Download SQL Server 2019 Express from Microsoft:</p>
+      <div class="code-block">
+        <div class="code-label plain">🌐 Download URL</div>
+        <pre class="plain" id="code2">https://www.microsoft.com/en-us/download/details.aspx?id=101064</pre>
+        <button class="copy-btn" onclick="copyCode('code2', this)">Copy</button>
+      </div>
+      <p>Run the installer and choose <strong>Custom</strong>. Set these values during the wizard:</p>
+      <ul class="sub-steps">
+        <li>Features: <strong>Database Engine Services only</strong> — uncheck everything else</li>
+        <li>Instance name: <code>GENORAY</code></li>
+        <li>Instance ID: leave as default (<code>SQLEXPRESS</code>)</li>
+        <li>SQL Browser: set to <strong>Automatic</strong></li>
+        <li>Authentication: <strong>Mixed Mode</strong> (SQL Server and Windows)</li>
+        <li>SA password: <code>triana</code></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step" id="step3">
+    <div class="step-header" onclick="toggle('step3')">
+      <div class="step-number">3</div>
+      <div class="step-title">
+        <h3>Enable TCP/IP and Set Fixed Port</h3>
+        <p>Configure SQL Server to accept connections on port 1433</p>
+      </div>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="step-body">
+      <p>Open SQL Server Configuration Manager:</p>
+      <div class="code-block">
+        <div class="code-label plain">📂 Run</div>
+        <pre class="plain" id="code3">C:\Windows\SysWOW64\mmc.exe /32 C:\Windows\SysWOW64\SQLServerManager15.msc</pre>
+        <button class="copy-btn" onclick="copyCode('code3', this)">Copy</button>
+      </div>
+      <p>In the Configuration Manager window:</p>
+      <ol class="sub-steps">
+        <li>Go to <strong>SQL Server Network Configuration → Protocols for GENORAY</strong></li>
+        <li>Right-click <strong>TCP/IP</strong> → Enable</li>
+        <li>Right-click <strong>Named Pipes</strong> → Enable</li>
+        <li>Right-click <strong>TCP/IP → Properties → IP Addresses tab</strong></li>
+        <li>Find <strong>IP9 (127.0.0.1):</strong> set Enabled = <code>Yes</code>, TCP Port = <code>1433</code>, TCP Dynamic Ports = blank</li>
+        <li>Find <strong>IPAll:</strong> set TCP Port = <code>1433</code>, TCP Dynamic Ports = blank</li>
+        <li>Click OK → Go to <strong>SQL Server Services → Restart SQL Server (GENORAY)</strong></li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="step" id="step4">
+    <div class="step-header" onclick="toggle('step4')">
+      <div class="step-number">4</div>
+      <div class="step-title">
+        <h3>Configure Registry for 32-bit Compatibility</h3>
+        <p>Old InstallShield installers check the WOW6432Node path</p>
+      </div>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="step-body">
+      <div class="info">Old 32-bit Genoray installers check a different registry path than 64-bit apps. This step ensures they find the SQL instance.</div>
+      <div class="code-block">
+        <div class="code-label">⚡ PowerShell (Admin)</div>
+        <pre id="code4"># Mirror instance to 32-bit registry
+New-Item -Path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Microsoft SQL Server\Instance Names\SQL" -Force
+Set-ItemProperty -Path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Microsoft SQL Server\Instance Names\SQL" -Name "GENORAY" -Value "MSSQL15.GENORAY"
+
+# Disable forced encryption for legacy ODBC clients
+New-Item -Path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Microsoft SQL Server\MSSQL15.GENORAY\MSSQLServer\SuperSocketNetLib" -Force
+Set-ItemProperty -Path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Microsoft SQL Server\MSSQL15.GENORAY\MSSQLServer\SuperSocketNetLib" -Name "ForceEncryption" -Value 0
+Set-ItemProperty -Path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Microsoft SQL Server\MSSQL15.GENORAY\MSSQLServer\SuperSocketNetLib" -Name "ForceStrict" -Value 0
+
+# Start SQL Browser and set to Automatic
+Set-Service "SQLBrowser" -StartupType Automatic
+Start-Service "SQLBrowser"
+Restart-Service "MSSQL`$GENORAY" -Force</pre>
+        <button class="copy-btn" onclick="copyCode('code4', this)">Copy</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 5 -->
+  <div class="step" id="step5">
+    <div class="step-header" onclick="toggle('step5')">
+      <div class="step-number">5</div>
+      <div class="step-title">
+        <h3>Create Database and Tables</h3>
+        <p>Create db_triana and run the schema scripts</p>
+      </div>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="step-body">
+      <div class="info">sqlcmd cannot handle spaces in file paths with the -i flag. Copy the scripts to C:\temp first.</div>
+      <div class="code-block">
+        <div class="code-label">⚡ PowerShell (Admin)</div>
+        <pre id="code5"># Create temp folder
+New-Item -ItemType Directory -Path C:\temp -Force
+
+# Create the database
+sqlcmd -S ".\GENORAY" -E -C -Q "CREATE DATABASE db_triana"
+
+# Copy scripts to C:\temp
+Copy-Item "D:\PARAMETERS\Software from DVD\PAPAYA3D OP\20181107_P3D_1.0.13.0\mssql\SQLQuery_CreateOrderTable.sql" "C:\temp\CreateOrderTable.sql"
+Copy-Item "D:\PARAMETERS\Software from DVD\TRIANA\Triana_2.5.10.0\Triana_2.5.10.0\mssql\triana_update_tables.sql" "C:\temp\triana_update_tables.sql"
+
+# Run the scripts
+sqlcmd -S ".\GENORAY" -E -C -i "C:\temp\CreateOrderTable.sql"
+sqlcmd -S ".\GENORAY" -E -C -i "C:\temp\triana_update_tables.sql"</pre>
+        <button class="copy-btn" onclick="copyCode('code5', this)">Copy</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 6 -->
+  <div class="step" id="step6">
+    <div class="step-header" onclick="toggle('step6')">
+      <div class="step-number">6</div>
+      <div class="step-title">
+        <h3>Cap SQL Server RAM Usage</h3>
+        <p>Prevent SQL from consuming all available memory</p>
+      </div>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="step-body">
+      <p>SQL Server defaults to unlimited memory. Cap it at 1GB — more than enough for Triana:</p>
+      <div class="code-block">
+        <div class="code-label">⚡ PowerShell (Admin)</div>
+        <pre id="code6">sqlcmd -S ".\GENORAY" -E -C -Q "EXEC sp_configure 'show advanced options', 1; RECONFIGURE; EXEC sp_configure 'max server memory', 1024; RECONFIGURE;"</pre>
+        <button class="copy-btn" onclick="copyCode('code6', this)">Copy</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 7 -->
+  <div class="step critical" id="step7">
+    <div class="step-header" onclick="toggle('step7')">
+      <div class="step-number">7</div>
+      <div class="step-title">
+        <h3>Install PapayaOP</h3>
+        <p>Run installer — uncheck SQL install option</p>
+      </div>
+      <span class="step-badge badge-critical">Critical Step</span>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="step-body">
+      <p>Run setup from the installer folder:</p>
+      <div class="code-block">
+        <div class="code-label plain">📂 Path</div>
+        <pre class="plain" id="code7">D:\PARAMETERS\Software from DVD\PAPAYA3D OP\20181107_P3D_1.0.13.0\setup.exe</pre>
+        <button class="copy-btn" onclick="copyCode('code7', this)">Copy</button>
+      </div>
+      <div class="warning">When the Setup Type screen appears — UNCHECK "Install MS-SQL DB". This skips the broken bundled SQL Server 2012 installer. The rest of the wizard completes normally.</div>
+    </div>
+  </div>
+
+  <!-- STEP 8 -->
+  <div class="step" id="step8">
+    <div class="step-header" onclick="toggle('step8')">
+      <div class="step-number">8</div>
+      <div class="step-title">
+        <h3>Install Triana</h3>
+        <p>Dismiss PS2 warnings — install still completes</p>
+      </div>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="step-body">
+      <p>Run setup from the installer folder:</p>
+      <div class="code-block">
+        <div class="code-label plain">📂 Path</div>
+        <pre class="plain" id="code8">D:\PARAMETERS\Software from DVD\TRIANA\Triana_2.5.10.0\Triana_2.5.10.0\setup.exe</pre>
+        <button class="copy-btn" onclick="copyCode('code8', this)">Copy</button>
+      </div>
+      <ul class="sub-steps">
+        <li>Select <strong>Server</strong></li>
+        <li>Select <strong>Microsoft SQL Server Database</strong></li>
+        <li>Dismiss all PowerShell 2 warnings — click <strong>Cancel</strong> on each</li>
+        <li>Click <strong>OK</strong> on the SQL install failure dialog</li>
+        <li>Triana will complete installation successfully despite the warnings</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- STEP 9 -->
+  <div class="step critical" id="step9">
+    <div class="step-header" onclick="toggle('step9')">
+      <div class="step-number">9</div>
+      <div class="step-title">
+        <h3>Configure Triana Database Connection</h3>
+        <p>Set connection string in ConST config window</p>
+      </div>
+      <span class="step-badge badge-critical">Critical Step</span>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="step-body">
+      <p>Launch Triana — the <strong>ConST configuration window</strong> opens automatically:</p>
+      <ol class="sub-steps">
+        <li>Click <strong>"Encryption not supported on the client"</strong> button</li>
+        <li>Set <strong>Server Name</strong> to <code>127.0.0.1,1433</code></li>
+        <li>UID: <code>sa</code></li>
+        <li>Password: <code>triana</code></li>
+        <li>Click <strong>Test</strong> → confirm "Connection successful"</li>
+        <li>Click <strong>Update</strong> → <strong>OK</strong></li>
+      </ol>
+      <div class="info">Note: Use <code>127.0.0.1,1433</code> (comma, not backslash) — this connects directly to port 1433 and bypasses the SQL Browser name resolution issue with Triana's legacy ODBC driver.</div>
+    </div>
+  </div>
+
+  <!-- STEP 10 -->
+  <div class="step optional" id="step10">
+    <div class="step-header" onclick="toggle('step10')">
+      <div class="step-number">10</div>
+      <div class="step-title">
+        <h3>Restore Patient Database</h3>
+        <p>Only if migrating from an existing install</p>
+      </div>
+      <span class="step-badge badge-optional">If Applicable</span>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="step-body">
+      <p>If patient data exists from a previous install, restore from the most recent <code>.bak</code> file in <code>D:\PARAMETERS\SQL\</code>:</p>
+      <div class="code-block">
+        <div class="code-label">⚡ PowerShell (Admin)</div>
+        <pre id="code10">sqlcmd -S ".\GENORAY" -E -C -Q "RESTORE DATABASE db_triana FROM DISK='D:\PARAMETERS\SQL\triana_db_YYYYMMDD-HHMMSS.bak' WITH REPLACE, RECOVERY, MOVE 'db_triana' TO 'C:\Program Files\Microsoft SQL Server\MSSQL15.GENORAY\MSSQL\DATA\db_triana.mdf', MOVE 'db_triana_log' TO 'C:\Program Files\Microsoft SQL Server\MSSQL15.GENORAY\MSSQL\DATA\db_triana_log.ldf';"</pre>
+        <button class="copy-btn" onclick="copyCode('code10', this)">Copy</button>
+      </div>
+      <p style="margin-top:10px;">Replace <code>YYYYMMDD-HHMMSS</code> with the actual filename of the backup.</p>
+    </div>
+  </div>
+
+  <!-- STEP 11 -->
+  <div class="step optional" id="step11">
+    <div class="step-header" onclick="toggle('step11')">
+      <div class="step-number">11</div>
+      <div class="step-title">
+        <h3>RAMDisk Fix (Dataram)</h3>
+        <p>Only if unit uses a Z: drive for image processing</p>
+      </div>
+      <span class="step-badge badge-optional">If Applicable</span>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="step-body">
+      <p>If RAMDisk fails with <em>"Failed to allocate requested disk memory (AWE)"</em>:</p>
+      <ol class="sub-steps">
+        <li><strong>Win + R</strong> → type <code>secpol.msc</code> → Enter</li>
+        <li>Navigate to <strong>Local Policies → User Rights Assignment</strong></li>
+        <li>Double-click <strong>"Lock pages in memory"</strong></li>
+        <li>Click <strong>Add User or Group</strong> → type <code>Administrator</code> → OK</li>
+        <li><strong>Restart the machine</strong> — policy only takes effect after restart</li>
+        <li>After restart, launch Dataram RAMDisk as <strong>Administrator</strong> → Start RAMDisk</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Reference Table -->
+  <div class="step" id="stepref" style="margin-top:40px;">
+    <div class="step-header" onclick="toggle('stepref')">
+      <div class="step-number" style="background:#334155;">📋</div>
+      <div class="step-title">
+        <h3>Quick Reference</h3>
+        <p>Key values for this installation</p>
+      </div>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="step-body">
+      <table class="ref-table">
+        <tr><th>Item</th><th>Value</th></tr>
+        <tr><td>SQL Instance Name</td><td><code>GENORAY</code></td></tr>
+        <tr><td>SA Password</td><td><code>triana</code></td></tr>
+        <tr><td>Database</td><td><code>db_triana</code></td></tr>
+        <tr><td>Triana Connection String</td><td><code>127.0.0.1,1433</code></td></tr>
+        <tr><td>SQL Version</td><td>2019 Express (MSSQL15)</td></tr>
+        <tr><td>Installer Source</td><td><code>D:\PARAMETERS\Software from DVD\</code></td></tr>
+        <tr><td>Backup Location</td><td><code>D:\PARAMETERS\SQL\</code></td></tr>
+        <tr><td>Admin PowerShell Shortcut</td><td>Win + X → A</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    <p>Genoray America — Field Engineering | Generated by Jarvis</p>
+  </footer>
+
+</div>
+
+<script>
+  function toggle(id) {
+    const el = document.getElementById(id);
+    el.classList.toggle('open');
+  }
+
+  function copyCode(id, btn) {
+    const code = document.getElementById(id).innerText;
+    navigator.clipboard.writeText(code).then(() => {
+      btn.textContent = '✓ Copied';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'Copy';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+
+  // Open first step by default
+  document.getElementById('step1').classList.add('open');
+</script>
+</body>
+</html>
