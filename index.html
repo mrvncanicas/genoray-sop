@@ -27,14 +27,26 @@ input[type=text]::placeholder{color:#484f58}
 .section-title{font-size:.85rem;font-weight:700;color:#fff;margin-bottom:12px;display:flex;align-items:center;gap:8px}
 
 /* Step list */
-.step-list{list-style:none;counter-reset:steps;display:flex;flex-direction:column;gap:0}
-.step-block{counter-increment:steps;display:flex;flex-direction:column;gap:0}
-.step-header{display:flex;align-items:flex-start;gap:12px;padding:14px 0 6px;border-top:1px solid #30363d}
-.step-block:first-child .step-header{border-top:none}
+.step-list{list-style:none;display:flex;flex-direction:column;gap:0}
+.step-block{display:flex;flex-direction:column;gap:0}
+
+/* Accordion summary */
+.step-block summary{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:14px 0 12px;border-top:1px solid #30363d;
+  cursor:pointer;list-style:none;user-select:none;
+}
+.step-block summary::-webkit-details-marker{display:none}
+.step-block:first-of-type summary{border-top:none}
+.step-block[open] summary{padding-bottom:4px}
 .step-num{background:#1f6feb;color:#fff;border-radius:50%;min-width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0;margin-top:1px}
-.step-title{font-size:.95rem;font-weight:700;color:#fff;margin-bottom:4px}
+.step-num.special{background:#9e6a03}
+.step-title-wrap{flex:1;min-width:0}
+.step-title{font-size:.95rem;font-weight:700;color:#fff;margin-bottom:2px}
 .step-desc{font-size:.82rem;color:#8b949e;line-height:1.5}
-.step-body{padding:10px 0 10px 38px;display:flex;flex-direction:column;gap:10px}
+.step-chevron{font-size:.65rem;color:#484f58;margin-top:6px;flex-shrink:0;transition:transform .2s}
+.step-block[open] .step-chevron{transform:rotate(90deg)}
+.step-body{padding:4px 0 14px 38px;display:flex;flex-direction:column;gap:10px}
 
 /* Code blocks */
 .code-wrap{position:relative}
@@ -132,14 +144,15 @@ footer{text-align:center;padding:16px;font-size:.68rem;color:#484f58;border-top:
     <ul class="step-list">
 
       <!-- STEP 1 -->
-      <li class="step-block">
-        <div class="step-header">
+      <li class="step-block" is="details"><details open>
+        <summary>
           <div class="step-num">1</div>
-          <div>
+          <div class="step-title-wrap">
             <div class="step-title">Install .NET Framework 3.5</div>
             <div class="step-desc">Required by SQL Server 2019. Run in PowerShell (Admin).</div>
           </div>
-        </div>
+          <span class="step-chevron">&#9658;</span>
+        </summary>
         <div class="step-body">
           <div class="code-wrap">
             <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -149,15 +162,18 @@ footer{text-align:center;padding:16px;font-size:.68rem;color:#484f58;border-top:
         </div>
       </li>
 
+      </details></li>
+
       <!-- STEP 2 -->
-      <li class="step-block">
-        <div class="step-header">
+      <li class="step-block"><details>
+        <summary>
           <div class="step-num">2</div>
-          <div>
+          <div class="step-title-wrap">
             <div class="step-title">Install SQL Server 2019 Express</div>
             <div class="step-desc">Download and run the installer with a Custom setup. This replaces the broken bundled SQL Server 2012.</div>
           </div>
-        </div>
+          <span class="step-chevron">&#9658;</span>
+        </summary>
         <div class="step-body">
           <div class="info-box">
             Download: <a href="https://www.microsoft.com/en-us/download/details.aspx?id=101064" target="_blank" style="color:#60a5fa">https://www.microsoft.com/en-us/download/details.aspx?id=101064</a>
@@ -174,15 +190,18 @@ footer{text-align:center;padding:16px;font-size:.68rem;color:#484f58;border-top:
         </div>
       </li>
 
+      </details></li>
+
       <!-- STEP 3 -->
-      <li class="step-block">
-        <div class="step-header">
+      <li class="step-block"><details>
+        <summary>
           <div class="step-num">3</div>
-          <div>
+          <div class="step-title-wrap">
             <div class="step-title">Enable TCP/IP and Set Fixed Port</div>
             <div class="step-desc">Open SQL Server Configuration Manager and configure the network protocols.</div>
           </div>
-        </div>
+          <span class="step-chevron">&#9658;</span>
+        </summary>
         <div class="step-body">
           <div class="code-wrap">
             <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -204,15 +223,18 @@ footer{text-align:center;padding:16px;font-size:.68rem;color:#484f58;border-top:
         </div>
       </li>
 
+      </details></li>
+
       <!-- STEP 4 -->
-      <li class="step-block">
-        <div class="step-header">
+      <li class="step-block"><details>
+        <summary>
           <div class="step-num">4</div>
-          <div>
+          <div class="step-title-wrap">
             <div class="step-title">Configure Registry for 32-bit Compatibility</div>
             <div class="step-desc">Old InstallShield installers check 32-bit registry paths. Run in PowerShell (Admin).</div>
           </div>
-        </div>
+          <span class="step-chevron">&#9658;</span>
+        </summary>
         <div class="step-body">
           <div class="code-wrap">
             <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -233,15 +255,18 @@ Restart-Service "MSSQL`$GENORAY" -Force</pre>
         </div>
       </li>
 
+      </details></li>
+
       <!-- STEP 5 -->
-      <li class="step-block">
-        <div class="step-header">
+      <li class="step-block"><details>
+        <summary>
           <div class="step-num">5</div>
-          <div>
+          <div class="step-title-wrap">
             <div class="step-title">Create Database and Tables</div>
             <div class="step-desc">Creates the db_triana database and runs the schema scripts. Paths are pulled from your configuration above.</div>
           </div>
-        </div>
+          <span class="step-chevron">&#9658;</span>
+        </summary>
         <div class="step-body">
           <div class="code-wrap">
             <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -251,15 +276,18 @@ Restart-Service "MSSQL`$GENORAY" -Force</pre>
         </div>
       </li>
 
+      </details></li>
+
       <!-- STEP 6 -->
-      <li class="step-block">
-        <div class="step-header">
+      <li class="step-block"><details>
+        <summary>
           <div class="step-num">6</div>
-          <div>
+          <div class="step-title-wrap">
             <div class="step-title">Cap SQL Server RAM</div>
             <div class="step-desc">SQL Server is aggressive with memory by default. Cap it to 1 GB so the PC stays responsive.</div>
           </div>
-        </div>
+          <span class="step-chevron">&#9658;</span>
+        </summary>
         <div class="step-body">
           <div class="code-wrap">
             <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -268,15 +296,18 @@ Restart-Service "MSSQL`$GENORAY" -Force</pre>
         </div>
       </li>
 
+      </details></li>
+
       <!-- STEP 7 -->
-      <li class="step-block">
-        <div class="step-header">
+      <li class="step-block"><details>
+        <summary>
           <div class="step-num">7</div>
-          <div>
+          <div class="step-title-wrap">
             <div class="step-title">Install PapayaOP</div>
             <div class="step-desc">Run the installer from the Software folder. Path is pulled from your configuration above.</div>
           </div>
-        </div>
+          <span class="step-chevron">&#9658;</span>
+        </summary>
         <div class="step-body">
           <div class="code-wrap">
             <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -286,15 +317,18 @@ Restart-Service "MSSQL`$GENORAY" -Force</pre>
         </div>
       </li>
 
+      </details></li>
+
       <!-- STEP 8 -->
-      <li class="step-block">
-        <div class="step-header">
+      <li class="step-block"><details>
+        <summary>
           <div class="step-num">8</div>
-          <div>
+          <div class="step-title-wrap">
             <div class="step-title">Install Triana</div>
             <div class="step-desc">Run the installer from the Software folder. Path is pulled from your configuration above.</div>
           </div>
-        </div>
+          <span class="step-chevron">&#9658;</span>
+        </summary>
         <div class="step-body">
           <div class="code-wrap">
             <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -310,15 +344,18 @@ Restart-Service "MSSQL`$GENORAY" -Force</pre>
         </div>
       </li>
 
+      </details></li>
+
       <!-- STEP 9 -->
-      <li class="step-block">
-        <div class="step-header">
+      <li class="step-block"><details>
+        <summary>
           <div class="step-num">9</div>
-          <div>
+          <div class="step-title-wrap">
             <div class="step-title">Configure Triana Database Connection</div>
             <div class="step-desc">Launch Triana — the ConST configuration window opens automatically on first launch.</div>
           </div>
-        </div>
+          <span class="step-chevron">&#9658;</span>
+        </summary>
         <div class="step-body">
           <ol class="plain">
             <li>Click <strong style="color:#fff">"Encryption not supported on the client"</strong> button</li>
@@ -331,15 +368,18 @@ Restart-Service "MSSQL`$GENORAY" -Force</pre>
         </div>
       </li>
 
+      </details></li>
+
       <!-- STEP 10 -->
-      <li class="step-block">
-        <div class="step-header">
+      <li class="step-block"><details>
+        <summary>
           <div class="step-num">10</div>
-          <div>
+          <div class="step-title-wrap">
             <div class="step-title">Restore Patient Database <span class="badge bg-purple" style="font-size:.6rem;margin-left:4px">If Applicable</span></div>
             <div class="step-desc">Only needed if patient data exists from a previous install. Path is pulled from your configuration above.</div>
           </div>
-        </div>
+          <span class="step-chevron">&#9658;</span>
+        </summary>
         <div class="step-body">
           <div class="code-wrap">
             <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -349,15 +389,18 @@ Restart-Service "MSSQL`$GENORAY" -Force</pre>
         </div>
       </li>
 
+      </details></li>
+
       <!-- STEP EXTRA: RAMDisk -->
-      <li class="step-block">
-        <div class="step-header">
-          <div class="step-num" style="background:#9e6a03">★</div>
-          <div>
+      <li class="step-block"><details>
+        <summary>
+          <div class="step-num" style="background:#9e6a03">&#9733;</div>
+          <div class="step-title-wrap">
             <div class="step-title">RAMDisk Fix (Dataram on Windows 11) <span class="badge bg-orange" style="margin-left:6px">If Applicable</span></div>
             <div class="step-desc">If the unit uses a RAMDisk for image processing (Z: drive) and it fails with "Failed to allocate requested disk memory (AWE)".</div>
           </div>
-        </div>
+          <span class="step-chevron">&#9658;</span>
+        </summary>
         <div class="step-body">
           <ol class="plain">
             <li><strong style="color:#fff">Win + R</strong> → type <span class="mono">secpol.msc</span></li>
@@ -370,6 +413,8 @@ Restart-Service "MSSQL`$GENORAY" -Force</pre>
           <div class="warn-box">Policy change only takes effect after a full restart.</div>
         </div>
       </li>
+
+      </details></li>
 
     </ul>
   </div>
